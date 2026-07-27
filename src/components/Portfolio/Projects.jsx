@@ -8,7 +8,8 @@ export default function Projects() {
       category: "AI / Machine Learning",
       description: "An automated candidate evaluation system built with Python, NLP TF-IDF vectorizers, BERT embeddings, and Scikit-Learn classifiers for scoring resume relevance.",
       tags: ["Python", "NLP", "Scikit-Learn", "BERT", "Streamlit"],
-      github: "https://github.com/Chetanreddysai",
+      github: "https://github.com/Chetanreddysai/SmartHire-AI",
+      demo: "https://github.com/Chetanreddysai/SmartHire-AI",
       featured: true
     },
     {
@@ -17,6 +18,7 @@ export default function Projects() {
       description: "A dual-mode developer portfolio and live ATS resume creation suite with real-time score optimization, live template switching, and print PDF export.",
       tags: ["React 19", "Vite", "Tailwind CSS", "Lucide Icons"],
       github: "https://github.com/Chetanreddysai/Portfolio-website",
+      demo: "https://chetanreddysai.github.io/Portfolio-website/",
       featured: true
     },
     {
@@ -24,7 +26,8 @@ export default function Projects() {
       category: "Full Stack Web App",
       description: "Emergency relief and rescue routing web application with live Geolocation tracking, video status uploads, and real-time alert dispatches.",
       tags: ["JavaScript", "HTML5", "REST API", "Leaflet Maps"],
-      github: "https://github.com/Chetanreddysai",
+      github: "https://github.com/Chetanreddysai/Aapda-Mitra-Dashboard",
+      demo: "https://github.com/Chetanreddysai/Aapda-Mitra-Dashboard",
       featured: false
     }
   ];
@@ -57,16 +60,28 @@ export default function Projects() {
                   ))}
                 </div>
 
-                <a
-                  href={proj.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
-                  <Github className="w-3.5 h-3.5" />
-                  <span>View Repository</span>
-                  <ExternalLink className="w-3 h-3 ml-0.5" />
-                </a>
+                <div className="flex items-center gap-4">
+                  <a
+                    href={proj.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    <Github className="w-3.5 h-3.5" />
+                    <span>Code Repo</span>
+                  </a>
+                  {proj.demo && (
+                    <a
+                      href={proj.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                    >
+                      <span>Live Demo</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}

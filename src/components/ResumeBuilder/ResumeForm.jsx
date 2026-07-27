@@ -1,8 +1,10 @@
-import React from 'react';
-import { Plus, Trash2, RotateCcw, Sparkles } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Plus, Trash2, Sparkles, Download, Upload, RotateCcw } from 'lucide-react';
 import { defaultResumeData } from '../../data/sampleResume';
 
-export default function ResumeForm({ data, onChange }) {
+export default function ResumeForm({ data, onChange, onToast }) {
+  const fileInputRef = useRef(null);
+
   const updatePersonalInfo = (field, value) => {
     onChange({
       ...data,
@@ -12,6 +14,40 @@ export default function ResumeForm({ data, onChange }) {
 
   const handleLoadSample = () => {
     onChange(defaultResumeData);
+    if (onToast) onToast("Preset sample data loaded successfully!");
+  };
+
+  // JSON Export
+  const handleExportJSON = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `${(data.personalInfo.fullName || "resume").toLowerCase().replace(/\s+/g, '_')}_data.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    if (onToast) onToast("Exported resume data to JSON!");
+  };
+
+  // JSON Import
+  const handleImportJSON = (e) => {
+    const fileReader = new FileReader();
+    if (e.target.files && e.target.files[0]) {
+      fileReader.readAsText(e.target.files[0], "UTF-8");
+      fileReader.onload = (event) => {
+        try {
+          const parsed = JSON.parse(event.target.result);
+          if (parsed && parsed.personalInfo) {
+            onChange(parsed);
+            if (onToast) onToast("Imported resume data from JSON file!");
+          } else {
+            alert("Invalid resume JSON structure.");
+          }
+        } catch (err) {
+          alert("Error parsing JSON file.");
+        }
+      };
+    }
   };
 
   // Experience handlers
@@ -61,18 +97,42 @@ export default function ResumeForm({ data, onChange }) {
 
   return (
     <div className="space-y-6 text-sm text-slate-200">
-      {/* Header & Quick Action Buttons */}
-      <div className="flex items-center justify-between bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-        <h2 className="font-heading text-lg font-bold text-white flex items-center gap-2">
-          <span>Edit Resume Content</span>
-        </h2>
-        <button
-          onClick={handleLoadSample}
-          className="px-3 py-1.5 rounded-lg bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-400 text-xs font-semibold border border-cyan-500/30 flex items-center gap-1.5 transition-all"
-        >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Load Sample Preset</span>
-        </button>
+      {/* Action Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+        <h2 className="font-heading text-lg font-bold text-white">Resume Form Editor</h2>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            onClick={handleLoadSample}
+            className="px-3 py-1.5 rounded-lg bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-400 text-xs font-semibold border border-cyan-500/30 flex items-center gap-1.5 transition-all"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Load Sample</span>
+          </button>
+
+          <button
+            onClick={handleExportJSON}
+            className="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-xs font-semibold border border-indigo-500/30 flex items-center gap-1.5 transition-all"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Export JSON</span>
+          </button>
+
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition-all"
+          >
+            <Upload className="w-3.5 h-3.5" />
+            <span>Import JSON</span>
+          </button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImportJSON}
+            accept=".json"
+            className="hidden"
+          />
+        </div>
       </div>
 
       {/* Personal Info */}

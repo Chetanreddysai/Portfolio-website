@@ -19,9 +19,9 @@ export default function Skills() {
       skills: ["Node.js", "Express", "Oracle DB", "MySQL", "PL/SQL"]
     },
     {
-      title: "Tools & Workflow",
+      title: "DevOps & Cloud",
       icon: Wrench,
-      skills: ["Git & GitHub", "Docker", "VS Code", "Linux / Shell", "Postman", "Replit"]
+      skills: ["Git & GitHub", "GitHub Actions CI/CD", "Docker", "VS Code", "Postman", "AWS / Vercel"]
     }
   ];
 

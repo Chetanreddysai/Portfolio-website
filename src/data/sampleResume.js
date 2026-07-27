@@ -42,13 +42,13 @@ export const defaultResumeData = {
     { category: "Languages", items: ["Python", "JavaScript (ES6+)", "C++", "SQL", "HTML5/CSS3"] },
     { category: "AI & Data Science", items: ["PyTorch", "Scikit-Learn", "Pandas", "NumPy", "OpenCV", "NLP (TF-IDF, BERT)"] },
     { category: "Web & Frameworks", items: ["React.js", "Vite", "Node.js", "Express", "Tailwind CSS", "REST APIs"] },
-    { category: "Tools & Cloud", items: ["Git", "GitHub", "Docker", "VS Code", "Oracle DB", "Replit"] }
+    { category: "DevOps & Cloud", items: ["Git & GitHub", "GitHub Actions CI/CD", "Docker", "VS Code", "Oracle DB", "AWS / Vercel"] }
   ],
   projects: [
     {
       id: "proj-1",
       name: "SmartHire - Resume Matcher & Career Guidance Engine",
-      link: "https://github.com/Chetanreddysai",
+      link: "https://github.com/Chetanreddysai/SmartHire-AI",
       technologies: "Python, Scikit-Learn, React, Streamlit, NLP",
       description: "Automated candidate resume parsing, skill gap analysis, and ATS scoring engine using machine learning classifiers."
     },
@@ -62,7 +62,7 @@ export const defaultResumeData = {
     {
       id: "proj-3",
       name: "Aapda Mitra - Emergency Rescuer Dashboard",
-      link: "https://github.com/Chetanreddysai",
+      link: "https://github.com/Chetanreddysai/Aapda-Mitra-Dashboard",
       technologies: "JavaScript, Geolocation, REST API, HTML5",
       description: "Live alert dispatch and geolocation tracking dashboard for emergency rescue operations and disaster management."
     }

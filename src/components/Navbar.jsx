@@ -1,13 +1,29 @@
 import React from 'react';
-import { Sparkles, Layout, Printer, Download, Github, Code2 } from 'lucide-react';
+import { Sparkles, Layout, Printer, Github, Code2, FolderGit2, Cpu, Mail } from 'lucide-react';
 
 export default function Navbar({ activeMode, setActiveMode, onPrint, template, setTemplate }) {
+  const scrollToSection = (id) => {
+    if (activeMode !== 'portfolio') {
+      setActiveMode('portfolio');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Brand */}
         <div 
-          onClick={() => setActiveMode('portfolio')} 
+          onClick={() => {
+            setActiveMode('portfolio');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }} 
           className="flex items-center gap-2.5 cursor-pointer group"
         >
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform">
@@ -18,6 +34,24 @@ export default function Navbar({ activeMode, setActiveMode, onPrint, template, s
             <span className="text-[10px] block font-mono text-cyan-400 font-medium">AI & Web Developer</span>
           </div>
         </div>
+
+        {/* Portfolio Section Smooth Scroll Links */}
+        {activeMode === 'portfolio' && (
+          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
+            <button onClick={() => scrollToSection('projects')} className="hover:text-cyan-400 flex items-center gap-1.5 transition-colors">
+              <FolderGit2 size={14} />
+              <span>Projects</span>
+            </button>
+            <button onClick={() => scrollToSection('skills')} className="hover:text-cyan-400 flex items-center gap-1.5 transition-colors">
+              <Cpu size={14} />
+              <span>Skills</span>
+            </button>
+            <button onClick={() => scrollToSection('contact')} className="hover:text-cyan-400 flex items-center gap-1.5 transition-colors">
+              <Mail size={14} />
+              <span>Contact</span>
+            </button>
+          </nav>
+        )}
 
         {/* Mode Switcher Pills */}
         <div className="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-800">
@@ -49,11 +83,10 @@ export default function Navbar({ activeMode, setActiveMode, onPrint, template, s
         <div className="flex items-center gap-2">
           {activeMode === 'builder' ? (
             <>
-              {/* Template Picker */}
               <select
                 value={template}
                 onChange={(e) => setTemplate(e.target.value)}
-                className="bg-slate-900 text-slate-200 border border-slate-800 rounded-lg text-xs px-2.5 py-1.5 font-medium outline-none"
+                className="bg-slate-900 text-slate-200 border border-slate-800 rounded-lg text-xs px-2.5 py-1.5 font-medium outline-none cursor-pointer"
               >
                 <option value="modern">Modern Tech</option>
                 <option value="ats">ATS Classic</option>
@@ -64,14 +97,14 @@ export default function Navbar({ activeMode, setActiveMode, onPrint, template, s
                 className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-600/20 transition-all no-print"
               >
                 <Printer size={14} />
-                <span className="hidden sm:inline">Print / Download PDF</span>
+                <span className="hidden sm:inline">Print / PDF</span>
               </button>
             </>
           ) : (
             <a
               href="https://github.com/Chetanreddysai/Portfolio-website"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="px-3 py-1.5 rounded-lg glass-card hover:bg-slate-800 text-slate-300 text-xs font-medium border border-slate-800 flex items-center gap-1.5 transition-colors"
             >
               <Github size={15} />

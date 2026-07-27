@@ -1,9 +1,14 @@
 import React from 'react';
-import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles, Terminal } from 'lucide-react';
+import { ArrowRight, Download, Github, Linkedin, Mail, Sparkles, Terminal, FolderGit2 } from 'lucide-react';
 
 export default function Hero({ onSwitchToBuilder }) {
+  const scrollToProjects = () => {
+    const el = document.getElementById('projects');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section className="relative pt-24 pb-20 overflow-hidden">
+    <section id="hero" className="relative pt-24 pb-20 overflow-hidden">
       {/* Dynamic Background Glow Elements */}
       <div className="absolute top-10 left-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute top-32 right-1/4 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none" />
@@ -36,14 +41,22 @@ export default function Hero({ onSwitchToBuilder }) {
             <ArrowRight className="w-4 h-4" />
           </button>
 
+          <button
+            onClick={scrollToProjects}
+            className="px-5 py-3 rounded-xl glass-panel hover:bg-slate-800 text-slate-200 font-semibold text-sm border border-slate-700 flex items-center gap-2 transition-all"
+          >
+            <FolderGit2 className="w-4 h-4 text-cyan-400" />
+            <span>Explore Projects</span>
+          </button>
+
           <a
             href="https://github.com/Chetanreddysai"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="px-5 py-3 rounded-xl glass-panel hover:bg-slate-800 text-slate-200 font-semibold text-sm border border-slate-700 flex items-center gap-2 transition-all"
           >
             <Github className="w-4 h-4" />
-            <span>View GitHub</span>
+            <span>GitHub Profile</span>
           </a>
         </div>
 
